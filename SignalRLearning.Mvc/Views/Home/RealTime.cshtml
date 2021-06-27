@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <input class="form-control" id="txtName" />
+        <hr />
+        <button onclick="saveName()" class="btn btn-primary" id="btnNameSave">Gönder</button>
+        <hr />
+        <div class="alert alert-info">
+            Bağlantı Durumu:<strong id="conStatus"></strong>
+        </div>
+    </div>
+    <div class="col-md-8 offset-2">
+        <ul id="namelist"></ul>
+    </div> 
+</div>
+
+
+
+
+
+@section Scripts{
+
+<script src="/js/signalr.min.js"></script>
+<script type="text/javascript">
+    var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:5001/NotificationHub").build()
+    connection.start().then(()=>{
+
+    }).catch((err)=>{console.log(err)})
+    document.getElementById("conStatus").innerHTML = connection.connectionState;
+
+    function saveName(){
+         connection.invoke("SendMessage",document.getElementById("txtName").value).catch((err)=>console.log(err))
+    }
+   
+
+     connection.on("ReceiveMessage",(name)=>
+    $("#namelist").append(`<li class="list-group-item"> ${name} </li>`)
+    )
+</script>
+}

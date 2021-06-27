@@ -8,7 +8,7 @@ namespace SignalRLearning.Api.Hubs
 {
     public class NotificationHub:Hub
     {
-        public static List<string> Names { get; set; }
+        public static List<string> Names { get; set; } = new List<string>();
         public async Task SendMessage(string name)
         {
             Names.Add(name);

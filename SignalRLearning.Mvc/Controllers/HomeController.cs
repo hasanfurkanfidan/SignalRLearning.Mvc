@@ -33,5 +33,9 @@ namespace SignalRLearning.Mvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult RealTime()
+        {
+            return View();
+        }
     }
 }
