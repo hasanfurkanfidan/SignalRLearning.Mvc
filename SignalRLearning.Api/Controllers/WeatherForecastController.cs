@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using SignalRLearning.Api.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,7 @@ namespace SignalRLearning.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHubContext<NotificationHub> notificationHub)
         {
             _logger = logger;
         }

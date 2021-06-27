@@ -16,10 +16,16 @@
         <div class="alert alert-info">
             Bağlantı Durumu:<strong id="conStatus"></strong>
         </div>
+        <div class="alert alert-danger">
+            Kullanıcı Sayısı:<strong id="clientCount"></strong>
+        </div>
+        <div class="alert alert-secondary">
+            Bildiri:<strong id="notify"></strong>
+        </div>
     </div>
     <div class="col-md-8 offset-2">
         <ul id="namelist"></ul>
-    </div> 
+    </div>
 </div>
 
 
@@ -39,10 +45,33 @@
     function saveName(){
          connection.invoke("SendMessage",document.getElementById("txtName").value).catch((err)=>console.log(err))
     }
-   
+
 
      connection.on("ReceiveMessage",(name)=>
     $("#namelist").append(`<li class="list-group-item"> ${name} </li>`)
     )
+
+
+    connection.on("ReceiveClientCount",(clientCount)=>
+        document.getElementById("clientCount").innerHTML = clientCount
+
+    )
+
+
+    connection.on("Notify",(notify)=>
+        document.getElementById("notify").innerHTML = notify
+
+    )
+
+     connection.on("Error",(errorText)=>
+        alert(errorText)
+
+    )
+
+       
+
+   
+
+    
 </script>
 }
